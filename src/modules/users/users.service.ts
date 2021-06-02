@@ -21,7 +21,15 @@ export class UsersService {
     return createdUser.save();
   }
 
-  findAll(): User[] {
-    return this.users;
+  async findAll(): Promise<User[]> {
+    return this.userModel.find().exec();
+  }
+
+  async findOne(id: any): Promise<User> {
+    return this.userModel.findById({_id: id});
+  }
+
+  async auth(username: string, pass: string): Promise<User> {
+    return this.userModel.findOne({email: username, password:pass});
   }
 }

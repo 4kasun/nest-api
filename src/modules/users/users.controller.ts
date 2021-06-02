@@ -1,3 +1,4 @@
+import { Param } from '@nestjs/common';
 import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
 import { exception } from 'console';
 import { ValidationPipe } from '../../common/pipe/validation.pipe';
@@ -23,5 +24,11 @@ export class UsersController {
   @Get()
   public async findAll(): Promise<User[]> {
     return this.usersService.findAll();
+  }
+
+  @Get(':id')
+  public async findOne(@Param() params): Promise<User> {
+    // return this.usersService.findOne(params.id);
+    return this.usersService.auth('sampath@gmail.com', '1234');
   }
 }
